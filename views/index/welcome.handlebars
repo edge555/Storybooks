@@ -1,4 +1,7 @@
 <h1>Welcome</h1>
-<p>Storybooks v1.0.0</p>
+<p>StoryBooks v1.0.0</p>
 <p>Share your stories!</p>
-<a class="btn red darken-1" href="/auth/google"><i class="fa fa-google left"></i>Login with Google</a>
+{{#if user}}
+{{else}}
+<a class="btn red darken-1" href="/auth/google"><i class="fa fa-google left"></i> Login With Google</a>
+{{/if}}
