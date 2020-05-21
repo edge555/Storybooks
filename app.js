@@ -1,6 +1,10 @@
 const express= require('express');
 const mongoose = require('mongoose');
 const passport= require('passport');
+
+// Load User model
+require('./models/User');
+
 // Passport config
 require('./config/passport')(passport)
 
@@ -27,6 +31,10 @@ app.get('/',(req,res)=>{
 
 // Use routes
 app.use('/auth',auth);
+
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 const port = process.env.PORT || 3000;
 
