@@ -1,11 +1,13 @@
 const express= require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require ('body-parser');
+const Handlebars = require('handlebars')
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport= require('passport');
 const path = require('path')
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 // Load model
 require('./models/User');
@@ -38,7 +40,8 @@ app.use(bodyParser.json())
 
 // Handlebar middleware
 app.engine('handlebars',exphbs({
-    defaultLayout : 'main'
+    defaultLayout : 'main',
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
 }));
 app.set('view engine','handlebars')
 
