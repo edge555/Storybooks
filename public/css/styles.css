@@ -9,8 +9,20 @@ main{
 }
 
 .nav-wrapper .fa-bars{
-     font-size: 25px;
+    font-size: 25px;
 }
 footer{
     margin-top: 15px;
+}
+
+.story-text{
+    height:120px;
+}
+  
+.dash-status{
+  text-transform: capitalize;
+}
+  
+#delete-form{
+  display:inline;
 }
