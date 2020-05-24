@@ -67,4 +67,34 @@ router.get('/show/:id', (req, res) => {
     });
 });
 
+// Edit Form Process
+router.put('/:id', (req, res) => {
+    Story.findOne({
+        _id: req.params.id
+    })
+    .then(story => {
+    let allowComments = false;
+    if(req.body.allowComments){
+        allowComments = true
+    }
+    // New story
+    story.title = req.body.title;
+    story.body = req.body.body;
+    story.status = req.body.status;
+    story.allowComments = allowComments;
+    story.save()
+        .then(story => {
+            res.redirect('/dashboard');
+        });
+    });
+});
+
+// Delete story
+router.delete('/:id',(req,res)=>{
+    Story.remove({_id: req.params.id})
+    .then(() => {
+      res.redirect('/dashboard');
+    });
+});
+
 module.exports = router;

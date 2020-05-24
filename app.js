@@ -1,12 +1,13 @@
 const express= require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require ('body-parser');
-const Handlebars = require('handlebars')
+const Handlebars = require('handlebars');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport= require('passport');
-const path = require('path')
+const path = require('path');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 // Load model
@@ -31,7 +32,6 @@ const {
     select
   } = require('./helpers/hbs');
   
-
 mongoose.Promise = global.Promise;
 // Mongoose connect
 mongoose.connect(keys.mongoURI,{
@@ -46,6 +46,9 @@ const app = express();
 // Bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+// MEthod Override Middelware
+app.use(methodOverride('_method'));
 
 // Handlebar middleware
 app.engine('handlebars',exphbs({
