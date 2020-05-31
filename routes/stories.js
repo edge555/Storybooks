@@ -17,6 +17,28 @@ router.get('/',(req,res)=>{
     });
 });
 
+// List stories from user
+router.get('/user/:userId', (req, res) => {
+    Story.find({user: req.params.userId, status: 'public'})
+      .populate('user')
+      .then(stories => {
+        res.render('stories/index', {
+          stories:stories
+        });
+    });
+});
+
+// My stories
+router.get('/my', ensureAuthenticated,(req, res) => {
+    Story.find({user: req.user.id})
+      .populate('user')
+      .then(stories => {
+        res.render('stories/index', {
+          stories:stories
+        });
+    });
+});
+  
 // Add story form
 router.get('/add',ensureAuthenticated, (req, res) => {
     res.render('stories/add');
@@ -66,9 +88,23 @@ router.get('/show/:id', (req, res) => {
     .populate('user')
     .populate('comments.commentUser')
     .then(story =>{
-        res.render('stories/show',{
-            story : story
-        });
+        if(story.status == 'public'){
+            res.render('stories/show',{
+                story : story
+            });
+        } else{
+            if(req.user){
+                if(req.user.id == story.user._id){
+                    res.render('stories/show',{
+                        story : story
+                    });
+                }else{
+                    res.redirect('/stories');
+                }
+            }else{
+                res.redirect('/stories');
+            }
+        }
     });
 });
 
