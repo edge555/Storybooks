@@ -21,7 +21,7 @@ const StorySchema = new Schema({
     },
     comments : [{
         commentBody :{
-            type:String,
+            type: String,
             required: true
         },
         commentDate :{
@@ -29,7 +29,7 @@ const StorySchema = new Schema({
             default: Date.now
         },
         commentUser:{
-            type: Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref : 'users'
         }
     }],
